@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-5 gap-4 p-2 text-gray-500">
+  <div class="flex items-center justify-between gap-4 p-2 w-full text-gray-500">
     <span>Метки</span>
     <span>Тип записи</span>
     <span>Логин</span>
@@ -7,7 +7,7 @@
     <span></span>
   </div>
   <div class="flex items-center gap-4 p-2 w-full" v-for="account in accounts" :key="account.id">
-    <input type="text" :value="account.label" class="border border-gray-300 rounded p-2 min-w-0" />
+    <input @blur="validate($event, account)" type="text" :value="account.labels.map((label) => label.text).join('; ')" class="border border-gray-300 rounded p-2 min-w-0" />
     <select class="border border-gray-300 rounded p-2 min-w-0" name="type" :value="account.type">
       <option value="LDAP">LDAP</option>
       <option value="Локальная">Локальная</option>
@@ -21,7 +21,7 @@
       </button>
     </div>
     <div class="flex justify-end flex-none w-10">
-      <BasketIcon />
+      <BasketIcon @click="removeAccount(account)" />
     </div>
   </div>
 </template>
@@ -38,4 +38,24 @@
     console.log(account);
     account.isPasswordVisible = !account.isPasswordVisible;
   };
+  const validate = (event: Event, account: Account) => {
+    const input = event.target as HTMLInputElement;
+    const accountLabelText = account.labels.map((label) => label.text).join("; ");
+
+    if (accountLabelText != input.value) {
+      const newLabels = input.value
+        .split("; ")
+        .filter((text) => text.trim())
+        .map((text) => ({ text }));
+      accountsStore.updateAccount({ ...account, labels: newLabels });
+    }
+    const newLabels = input.value
+      .split("; ")
+      .filter((text) => text.trim())
+      .map((text) => ({ text }));
+    if (JSON.stringify(newLabels) !== JSON.stringify(account.labels)) {
+      accountsStore.updateAccount({ ...account, labels: newLabels });
+    }
+  };
+  const removeAccount = (account: Account) => accountsStore.removeAccount(account.id);
 </script>
