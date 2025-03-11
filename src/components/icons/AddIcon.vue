@@ -4,7 +4,7 @@
   </button>
 </template>
 <script setup lang="ts">
-  import { useAccountsStore, type Account } from "@/stores/accounts";
+  import { useAccountsStore, type Account } from "../../stores/accounts";
 
   const accountsStore = useAccountsStore();
   const addAccount = () => {
