@@ -1,6 +1,6 @@
 # Saasoft Test
 
-Это проект, созданный с использованием Vue 3, Vite и Pinia, с Tailwind CSS для стилизации.
+Тестовый проект
 
 ## Требования
 
@@ -14,7 +14,13 @@
 Для начала, клонируйте репозиторий и установите все зависимости с помощью npm:
 
 ```bash
-git clone https://your-repository-url.git
+git clone https://https://github.com/ayankz/saaSoft-test.git
 cd saasoft-test
 npm install
+```
+
+## Запуск проекта
+
+```bash
+npm run dev
 ```
