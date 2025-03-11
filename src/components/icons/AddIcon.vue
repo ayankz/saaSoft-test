@@ -13,7 +13,7 @@
       labels: [{ text: "" }],
       type: "Локальная",
       login: "",
-      password: "124",
+      password: "",
       isPasswordVisible: false,
     };
     accountsStore.addAccount(account);
